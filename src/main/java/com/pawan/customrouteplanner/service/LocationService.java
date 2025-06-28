@@ -2,6 +2,7 @@ package com.pawan.customrouteplanner.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.pawan.customrouteplanner.dto.request.LocationRequest;
@@ -16,7 +17,8 @@ public class LocationService {
 	public LocationService(LocationRepository locationRepo) {
 		this.locationRepo = locationRepo;
 	}
-
+	
+	@PreAuthorize("hasRole('ADMIN')")   // Alternative: @Secured("ROLE_ADMIN")
 	public ResponseEntity<String> addLocation(LocationRequest request) throws Exception {
 		try {
 			String locationName = request.getName().toLowerCase();
