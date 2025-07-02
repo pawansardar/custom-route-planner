@@ -1,5 +1,6 @@
 package com.pawan.customrouteplanner.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,8 @@ public class LocationController {
 	
 	@PostMapping("location")
 	public ResponseEntity<String> addLocation(@RequestBody @Valid LocationRequest request) throws Exception {
-		return locationService.addLocation(request);
+		String result = locationService.addLocation(request);
+		return new ResponseEntity<>(result, HttpStatus.CREATED);
 	}
 	
 }

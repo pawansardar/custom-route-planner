@@ -1,7 +1,5 @@
 package com.pawan.customrouteplanner.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,7 @@ public class LocationService {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")   // Alternative: @Secured("ROLE_ADMIN")
-	public ResponseEntity<String> addLocation(LocationRequest request) throws Exception {
+	public String addLocation(LocationRequest request) throws Exception {
 		try {
 			String locationName = request.getName().toLowerCase();
 			if (locationRepo.existsByName(locationName)) {
@@ -27,7 +25,7 @@ public class LocationService {
 			}
 			Location location = new Location(locationName);
 			locationRepo.save(location);
-			return new ResponseEntity<>("Location saved successfully", HttpStatus.CREATED);
+			return "Location saved successfully";
 		}
 		catch (Exception e) {
 			throw new Exception(e.getMessage());
